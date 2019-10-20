@@ -6,10 +6,12 @@ import net.snapecraft.KnockbackFFA.events.*;
 import net.snapecraft.KnockbackFFA.kits.KitGuiCommand;
 import net.snapecraft.KnockbackFFA.kits.KitGuiListener;
 import net.snapecraft.KnockbackFFA.util.Config;
+import net.snapecraft.KnockbackFFA.util.KitObject;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.Material;
 import org.bukkit.command.ConsoleCommandSender;
+import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
@@ -23,6 +25,8 @@ public class Main extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        ConfigurationSerialization.registerClass(KitObject.class, "KitObject");
+
         ConsoleCommandSender console = this.getServer().getConsoleSender();
 
         console.sendMessage(" \n\n___  __    ________  ________ ________ ________     \n" +

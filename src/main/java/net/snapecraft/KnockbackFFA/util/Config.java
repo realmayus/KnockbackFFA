@@ -5,6 +5,7 @@ import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.inventory.ItemStack;
 
 import java.io.File;
 import java.io.IOException;
@@ -34,6 +35,12 @@ public class Config {
         starter.add("STICK");
         starter.add("APPLE");
 
+
+        List<ItemStack> test = new ArrayList<>();
+        test.add(new ItemStack(Material.STICK));
+        test.add(new ItemStack(Material.COOKED_MUTTON));
+
+        Config.addDefault("altkits.objectItems", new KitObject("objectTest", "object test", 10, test, Material.REDSTONE));
         Config.addDefault("kits.starterItems", starter);
         Config.addDefault("settings.game.GetHunger", false);
         Config.options().copyDefaults(true);

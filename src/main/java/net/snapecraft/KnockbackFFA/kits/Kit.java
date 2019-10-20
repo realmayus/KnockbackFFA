@@ -27,7 +27,6 @@ public class Kit {
         List<Material> ml = Config.getItemsOfKit(getCurrentKit(p));
 
         for(Material material : ml) {
-            //ToDo: Special Items hier einfügen
             if(material.equals(Material.STICK)) {
                 ItemStack stick = new ItemStack(material);
                 ItemMeta stickm = stick.getItemMeta();

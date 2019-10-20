@@ -32,7 +32,7 @@ public class KitGuiListener implements Listener {
                     //skip
                 } else {
                     if(Database.hasKit(p.getUniqueId(), Config.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()))) {
-                        //TODO equip kit
+                        Kit.setCurrentKit(p, Config.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()));
 
                     } else { //Player doesn't have kit yet --> open buy dialog
                         KitGui.openBuyScreen(p, Config.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()));
