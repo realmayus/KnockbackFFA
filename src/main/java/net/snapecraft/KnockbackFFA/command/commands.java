@@ -2,8 +2,8 @@ package net.snapecraft.KnockbackFFA.command;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
+import net.snapecraft.KnockbackFFA.kits.Kit;
 import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.util.GetItems;
 import net.snapecraft.KnockbackFFA.Main;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -33,7 +33,7 @@ public class commands implements CommandExecutor {
                         Main.addToGamelist(p.getName(), args[1]);
                         Bukkit.broadcastMessage("Gamelist: " + Main.gamelist.toString());
                         p.teleport(Config.getArenaSpawn(args[1]));
-                        GetItems.getWorldItems(p);
+                        Kit.receiveItems(p);
                     } else {
                         p.sendMessage(Main.prefix + "§cDu bist bereits in einer Arena!");
                     }
@@ -41,15 +41,7 @@ public class commands implements CommandExecutor {
                 } else {
                     p.sendMessage(Main.prefix + "§cWelt nicht gefunden!");
                 }
-            } else if(args[0].equalsIgnoreCase("kit")) {
-                if(Config.getKits().containsKey(args[1])){
-                    p.getInventory().clear();
-                    GetItems.getWorldItems(p, args[1]);
-                } else {
-                    p.sendMessage(Main.prefix + "§cDieses Kit gibt es nicht!");
-                }
-            }
-             else if(args[0].equalsIgnoreCase("setdeathheight")) {
+            } else if(args[0].equalsIgnoreCase("setdeathheight")) {
                 if(Config.getArenaSpawn(args[1]) != null) {
                     Config.setDeathHeightForWorld(args[1], p.getLocation().getBlockY());
                     TextComponent message1 = new TextComponent( "[" + ChatColor.YELLOW +  "Weiter§r] " );
