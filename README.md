@@ -1,3 +1,3 @@
 # KnockbackFFA
 
-Spielmodus auf snapecraft.net
+coming soon
