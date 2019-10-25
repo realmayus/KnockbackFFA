@@ -1,7 +1,8 @@
-package net.snapecraft.KnockbackFFA.kits;
+package me.mayus.KnockbackFFA.kits;
 
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.util.Database;
+import me.mayus.KnockbackFFA.util.Database;
+import me.mayus.KnockbackFFA.util.KitObject;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.DyeColor;
 import org.bukkit.Material;
@@ -28,7 +29,7 @@ public class KitGui {
         Inventory inv = Bukkit.createInventory(null, 27, "§dKits §3(Seite " + getPage(p) + "/" + getTotalPages(p) + ")");
 
         for(int i = 0; i <= 26; i++){
-            ItemStack pane = new ItemStack(Material.STAINED_GLASS_PANE, 1, (short) DyeColor.LIGHT_BLUE.getData());
+            ItemStack pane = new ItemStack(Material.BLUE_STAINED_GLASS_PANE, 1);
             ItemMeta panemeta = pane.getItemMeta();
             panemeta.setDisplayName(" ");
             pane.setItemMeta(panemeta);
@@ -55,17 +56,75 @@ public class KitGui {
     This inventory is opened when you click on a kit and don't own it yet. You get a menu where you can
     see your current balance, the kit you're gonna buy as well as some abort/confirm buttons.
      */
-    public static void openBuyScreen(Player p, String kit) {
+//    public static void openBuyScreen(Player p, String kit) {
+//        Inventory inv = Bukkit.createInventory(null, 9, "§2Kit kaufen");
+//
+//        String displayName = Config.getDisplayNameOfKit(kit);
+//        int price = Config.getPriceOfKit(kit);
+//        Material icon = Config.getIconOfKit(kit);
+//        List<Material> items = Config.getItemsOfKit(kit);
+//        List<String> lore = new ArrayList<>();
+//        lore.add("§7Dieses Kit enthält:");
+//        for(Material mat : items) {
+//            lore.add("- §b" + mat.name());
+//        }
+//
+//        lore.add(" ");
+//        if(Database.hasKit(p.getUniqueId(), kit)) {
+//            lore.add("§dDu besitzt dieses Kit.");
+//        } else {
+//            lore.add("§7Preis: §e" + price);
+//            lore.add("§2§oKlicke, um dieses Kit zu kaufen");
+//        }
+//
+//        ItemStack kitStack = new ItemStack(icon, 1);
+//        ItemMeta kitStackMeta = kitStack.getItemMeta();
+//        kitStackMeta.setDisplayName(displayName);
+//        kitStackMeta.setLore(lore);
+//        kitStack.setItemMeta(kitStackMeta);
+//
+//        inv.setItem(0, kitStack);
+//
+//        ItemStack chest = new ItemStack(Material.CHEST, 1);
+//        ItemMeta chestMeta = chest.getItemMeta();
+//        chestMeta.setDisplayName("§eDein Kontostand");
+//        List<String> chestLore = new ArrayList<>();
+//        chestLore.add("§7Du hast derzeit:");
+//        chestLore.add("§e"  +Database.getCoins(p.getUniqueId()) + " Coins");
+//        chestMeta.setLore(chestLore);
+//        chest.setItemMeta(chestMeta);
+//
+//        inv.setItem(1, chest);
+//
+//        ItemStack cancelStack = new ItemStack(Material.WOOL, 1, (short) DyeColor.RED.getData());
+//        ItemMeta cancelStackMeta = cancelStack.getItemMeta();
+//        cancelStackMeta.setDisplayName("§cAbbrechen");
+//        cancelStack.setItemMeta(cancelStackMeta);
+//
+//        inv.setItem(7, cancelStack);
+//
+//        ItemStack buyStack = new ItemStack(Material.WOOL, 1, (short) DyeColor.GREEN.getData());
+//        ItemMeta buyStackMeta = cancelStack.getItemMeta();
+//        buyStackMeta.setDisplayName("§aKaufen");
+//        buyStack.setItemMeta(buyStackMeta);
+//
+//        inv.setItem(8, buyStack);
+//
+//
+//        p.openInventory(inv);
+//    }
+
+    public static void openBuyScreen(Player p, KitObject kit) {
         Inventory inv = Bukkit.createInventory(null, 9, "§2Kit kaufen");
 
-        String displayName = Config.getDisplayNameOfKit(kit);
-        int price = Config.getPriceOfKit(kit);
-        Material icon = Config.getIconOfKit(kit);
-        List<Material> items = Config.getItemsOfKit(kit);
+        String displayName = kit.getDisplayName();
+        int price = kit.getPrice();
+        Material icon = kit.getIcon();
+        List<ItemStack> items = kit.getItemsIncluded();
         List<String> lore = new ArrayList<>();
         lore.add("§7Dieses Kit enthält:");
-        for(Material mat : items) {
-            lore.add("- §b" + mat.name());
+        for(ItemStack is : items) {
+            lore.add("- §b" + is.getType().getKey());
         }
 
         lore.add(" ");
@@ -95,14 +154,14 @@ public class KitGui {
 
         inv.setItem(1, chest);
 
-        ItemStack cancelStack = new ItemStack(Material.WOOL, 1, (short) DyeColor.RED.getData());
+        ItemStack cancelStack = new ItemStack(Material.RED_WOOL, 1);
         ItemMeta cancelStackMeta = cancelStack.getItemMeta();
         cancelStackMeta.setDisplayName("§cAbbrechen");
         cancelStack.setItemMeta(cancelStackMeta);
 
         inv.setItem(7, cancelStack);
 
-        ItemStack buyStack = new ItemStack(Material.WOOL, 1, (short) DyeColor.GREEN.getData());
+        ItemStack buyStack = new ItemStack(Material.GREEN_WOOL, 1);
         ItemMeta buyStackMeta = cancelStack.getItemMeta();
         buyStackMeta.setDisplayName("§aKaufen");
         buyStack.setItemMeta(buyStackMeta);
@@ -117,10 +176,8 @@ public class KitGui {
     // Returns a banner item with arrows on it for menu navigation, pass "arrow_right" or "arrow_left" as argument.
     public static ItemStack getBanner(String option) {
         if (option.equalsIgnoreCase("arrow_right")) {
-            ItemStack i = new ItemStack(Material.BANNER, 1);
+            ItemStack i = new ItemStack(Material.BLACK_BANNER, 1);
             BannerMeta bannerMeta = (BannerMeta)i.getItemMeta();
-
-            bannerMeta.setBaseColor(DyeColor.BLACK);
 
             List<Pattern> patterns = new ArrayList<Pattern>();
 
@@ -138,10 +195,9 @@ public class KitGui {
 
             return i; //Return the ItemStack 'i'
         } else if (option.equalsIgnoreCase("arrow_left")) {
-            ItemStack i = new ItemStack(Material.BANNER, 1);
+            ItemStack i = new ItemStack(Material.BLACK_BANNER, 1);
             BannerMeta bannerMeta = (BannerMeta)i.getItemMeta();
 
-            bannerMeta.setBaseColor(DyeColor.BLACK);
 
             List<Pattern> patterns = new ArrayList<Pattern>();
 
@@ -261,15 +317,15 @@ public class KitGui {
      */
     public static List<ItemStack> getKitItems(Player p) {
         List<ItemStack> kitItems = new ArrayList<>();
-        for(String kit : Config.getKitNames()) {
-            String displayName = Config.getDisplayNameOfKit(kit);
-            int price = Config.getPriceOfKit(kit);
-            Material icon = Config.getIconOfKit(kit);
-            List<Material> items = Config.getItemsOfKit(kit);
+        for(KitObject kit : NewConfig.getKits().values()) {
+            String displayName = kit.getDisplayName();
+            int price = kit.getPrice();
+            Material icon = kit.getIcon();
+            List<ItemStack> items = kit.getItemsIncluded();
             List<String> lore = new ArrayList<>();
             lore.add("§7Dieses Kit enthält:");
-            for(Material mat : items) {
-                lore.add("- §b" + mat.name());
+            for(ItemStack is : items) {
+                lore.add("- §b" + is.getType().getKey());
             }
             lore.add(" ");
 

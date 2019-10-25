@@ -1,14 +1,13 @@
-package net.snapecraft.KnockbackFFA.kits;
+package me.mayus.KnockbackFFA.kits;
 
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.util.Database;
+import me.mayus.KnockbackFFA.util.Database;
+import me.mayus.KnockbackFFA.util.KitObject;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.inventory.InventoryClickEvent;
-
-import javax.xml.crypto.Data;
 
 public class KitGuiListener implements Listener {
 
@@ -18,7 +17,7 @@ public class KitGuiListener implements Listener {
         Player p = (Player)e.getWhoClicked();
         //main kit menu
         if(e.getClickedInventory() != null) {
-            if (e.getClickedInventory().getTitle().startsWith("§dKits")) {
+            if (e.getView().getTitle().startsWith("§dKits")) {
                 e.setCancelled(true);
                 // Player has Kit already
 
@@ -28,27 +27,29 @@ public class KitGuiListener implements Listener {
                 } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§bVorherige Seite")) {
                     KitGui.prevPage(p);
                     KitGui.openMainScreen(p);
-                } else if (e.getCurrentItem().getType() == Material.STAINED_GLASS_PANE) {
+                } else if (e.getCurrentItem().getType() == Material.BLUE_STAINED_GLASS_PANE) {
+                    //skip
+                } else if (e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§eDein Kontostand")) {
                     //skip
                 } else {
-                    if(Database.hasKit(p.getUniqueId(), Config.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()))) {
-                        Kit.setCurrentKit(p, Config.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()));
+                    if(Database.hasKit(p.getUniqueId(), NewConfig.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()))) {
+                        Kit.setCurrentKit(p, NewConfig.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()));
 
                     } else { //Player doesn't have kit yet --> open buy dialog
-                        KitGui.openBuyScreen(p, Config.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()));
+                        KitGui.openBuyScreen(p, NewConfig.getKitByDisplayName(e.getCurrentItem().getItemMeta().getDisplayName()));
                     }
                 }
 
 
 
 
-            } else if(e.getClickedInventory().getTitle().equalsIgnoreCase("§2Kit kaufen")) {
+            } else if(e.getView().getTitle().equalsIgnoreCase("§2Kit kaufen")) {
                 e.setCancelled(true);
                 if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§cAbbrechen")) {
                     KitGui.openMainScreen(p);
                 } else if(e.getCurrentItem().getItemMeta().getDisplayName().equalsIgnoreCase("§aKaufen")) {
-                    String kit = Config.getKitByDisplayName(e.getClickedInventory().getItem(0).getItemMeta().getDisplayName());
-                    int price = Config.getPriceOfKit(kit);
+                    KitObject kit = NewConfig.getKitByDisplayName(e.getClickedInventory().getItem(0).getItemMeta().getDisplayName());
+                    int price = kit.getPrice();
 
                     if(Database.getCoins(p.getUniqueId()) > price) {
                         Database.spendCoins(p.getUniqueId(), price);

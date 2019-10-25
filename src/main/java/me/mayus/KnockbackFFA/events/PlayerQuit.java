@@ -1,6 +1,6 @@
-package net.snapecraft.KnockbackFFA.events;
+package me.mayus.KnockbackFFA.events;
 
-import net.snapecraft.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.Main;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;

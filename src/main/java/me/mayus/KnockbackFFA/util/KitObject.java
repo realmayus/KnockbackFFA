@@ -1,4 +1,4 @@
-package net.snapecraft.KnockbackFFA.util;
+package me.mayus.KnockbackFFA.util;
 
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
@@ -42,7 +42,6 @@ public class KitObject implements ConfigurationSerializable {
         this.itemsIncluded = itemsIncluded;
         this.icon = icon;
     }
-
     // This is necessary for saving the object in a config
     public KitObject(Map<String, Object> map) {
         this.name = (String)map.get("name");
@@ -51,7 +50,6 @@ public class KitObject implements ConfigurationSerializable {
         this.itemsIncluded = (List<ItemStack>)map.get("itemsIncluded");
         this.icon = Material.valueOf((String)map.get("icon"));
     }
-
     // This is necessary for saving the object in a config
     @Override
     public Map<String, Object> serialize() {

@@ -1,10 +1,10 @@
-package net.snapecraft.KnockbackFFA.command;
+package me.mayus.KnockbackFFA.command;
 
+import me.mayus.KnockbackFFA.Main;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.snapecraft.KnockbackFFA.kits.Kit;
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.kits.Kit;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.Command;
@@ -21,18 +21,18 @@ public class commands implements CommandExecutor {
 
         if(args.length == 2) {
             if (args[0].equalsIgnoreCase("setarena")) {
-                Config.setArena(args[1], p.getLocation());
+                NewConfig.setArena(args[1], p.getLocation());
                 p.sendMessage(Main.prefix + "§aArena gesetzt!");
                 TextComponent message1 = new TextComponent( "[" + ChatColor.YELLOW +  "Weiter§r] " );
                 message1.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/kbffa setup 3" ));
                 p.spigot().sendMessage(message1);
             }
             if(args[0].equalsIgnoreCase("join")) {
-                if(Config.getArenaSpawn(args[1]) != null)  {
+                if(NewConfig.getArenaSpawn(args[1]) != null)  {
                     if(!Main.gamelist.containsKey(p.getName())) {
                         Main.addToGamelist(p.getName(), args[1]);
                         Bukkit.broadcastMessage("Gamelist: " + Main.gamelist.toString());
-                        p.teleport(Config.getArenaSpawn(args[1]));
+                        p.teleport(NewConfig.getArenaSpawn(args[1]));
                         Kit.receiveItems(p);
                     } else {
                         p.sendMessage(Main.prefix + "§cDu bist bereits in einer Arena!");
@@ -42,8 +42,8 @@ public class commands implements CommandExecutor {
                     p.sendMessage(Main.prefix + "§cWelt nicht gefunden!");
                 }
             } else if(args[0].equalsIgnoreCase("setdeathheight")) {
-                if(Config.getArenaSpawn(args[1]) != null) {
-                    Config.setDeathHeightForWorld(args[1], p.getLocation().getBlockY());
+                if(NewConfig.getArenaSpawn(args[1]) != null) {
+                    NewConfig.setDeathHeightForWorld(args[1], p.getLocation().getBlockY());
                     TextComponent message1 = new TextComponent( "[" + ChatColor.YELLOW +  "Weiter§r] " );
                     message1.setClickEvent( new ClickEvent( ClickEvent.Action.RUN_COMMAND, "/kbffa setup 4" ));
                     p.spigot().sendMessage(message1);
@@ -91,7 +91,7 @@ public class commands implements CommandExecutor {
             }
         } else if(args.length == 1) {
             if(args[0].equalsIgnoreCase("setlobby")) {
-                Config.setLobby(p.getLocation());
+                NewConfig.setLobby(p.getLocation());
                 p.sendMessage(Main.prefix + "§aLobby gesetzt.");
                 TextComponent message1 = new TextComponent("[" + ChatColor.YELLOW + "Weiter§r] ");
                 TextComponent message2 = new TextComponent("[" + ChatColor.RED + "Abbrechen§r] ");
@@ -101,7 +101,7 @@ public class commands implements CommandExecutor {
                 p.spigot().sendMessage(message1);
 
             } else if(args[0].equalsIgnoreCase("kit")) {
-                String kitsSeperated = String.join(",", Config.getKits().keySet());
+                String kitsSeperated = String.join(",", NewConfig.getKits().keySet());
 
                 p.sendMessage(Main.prefix + "Es gibt zurzeit folgende Kits: §6" + kitsSeperated);
             }  else if (args[0].equalsIgnoreCase("setup")) {
@@ -120,12 +120,12 @@ public class commands implements CommandExecutor {
 
             } else if(args[0].equalsIgnoreCase("leave") || args[0].equalsIgnoreCase("lobby")) {
                 p.sendMessage("Du hast das Spiel verlassen!");
-                p.teleport(Config.getLobby());
+                p.teleport(NewConfig.getLobby());
                 Main.removeFromGamelist(p.getName());
                 p.getInventory().clear();
             } else if(args[0].equalsIgnoreCase("list")) {
 
-                String arenaSeperated = String.join(",", Config.getArenas());
+                String arenaSeperated = String.join(",", NewConfig.getArenas());
                 p.sendMessage(Main.prefix + "Foldende Arenen sind verfügbar: §6" + arenaSeperated);
             } else if(args[0].equalsIgnoreCase("cancelsetup")) {
                 for(int i = 0; i < 100; i++) {
@@ -133,7 +133,7 @@ public class commands implements CommandExecutor {
                 }
                 p.sendMessage(Main.prefix + "§aSetup beendet.");
             } else if(args[0].equalsIgnoreCase("reload")) {
-                Config.reload();
+                NewConfig.reload();
                 p.sendMessage(Main.prefix + "§aConfig wurde neugeladen!");
             } else if(args[0].equalsIgnoreCase("ver")) {
                 p.sendMessage(Main.prefix + "Version v." + Main.getPlugin(Main.class).getDescription().getVersion());

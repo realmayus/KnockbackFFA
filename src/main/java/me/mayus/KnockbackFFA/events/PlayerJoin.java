@@ -1,9 +1,9 @@
-package net.snapecraft.KnockbackFFA.events;
+package me.mayus.KnockbackFFA.events;
 
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
-import net.snapecraft.KnockbackFFA.kits.KitGui;
-import net.snapecraft.KnockbackFFA.util.Config;
+import me.mayus.KnockbackFFA.kits.KitGui;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -18,9 +18,8 @@ public class PlayerJoin implements Listener {
         e.getPlayer().getInventory().clear();
         e.getPlayer().setHealth(20.0);
         e.getPlayer().sendMessage("§aWillkommen auf KnockbackFFA!");
-        e.getPlayer().teleport(Config.getLobby());
 
-        if(Config.ConfigFile.length() == 0) {
+        if(NewConfig.getLobby() == null) {
             if(e.getPlayer().hasPermission("KBFFA.receiveWarnings")) {
                 e.getPlayer().sendMessage("KBFFA ist noch nicht eingerichtet. Klicke den Knopf, um den Setup-Wizard zu starten:");
                 TextComponent message1 = new TextComponent( "[" + ChatColor.YELLOW +  "Setup starten§r] " );
@@ -31,6 +30,8 @@ public class PlayerJoin implements Listener {
                 e.getPlayer().sendMessage("KBFFA ist noch nicht eingerichtet. Bitte warte, bis ein Admin dies tut.");
             }
         } else {
+            e.getPlayer().teleport(NewConfig.getLobby());
+
             e.getPlayer().sendMessage("§aNutze /kbffa join <welt>, um einer Welt beizutreten!");
 
         }

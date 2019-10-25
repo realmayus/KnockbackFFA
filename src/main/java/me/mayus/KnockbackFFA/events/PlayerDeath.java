@@ -1,8 +1,8 @@
-package net.snapecraft.KnockbackFFA.events;
+package me.mayus.KnockbackFFA.events;
 
-import net.snapecraft.KnockbackFFA.kits.Kit;
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.kits.Kit;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -17,11 +17,12 @@ public class PlayerDeath implements Listener {
         Player p = e.getEntity();
         e.setDeathMessage(null);
         if(Main.gamelist.containsKey(p.getName())) {
+            NewConfig.addDeath(p.getName());
             p.sendMessage("§cDu bist gestorben!");
             Bukkit.broadcastMessage("§6" + p.getName() + " §rist gestorben!");
-            p.teleport(Config.getArenaSpawn(Config.getArenaNameFromWorldName(p.getWorld().getName())));
+            p.teleport(NewConfig.getArenaSpawn(NewConfig.getArenaNameFromWorldName(p.getWorld().getName())));
         } else {
-            p.teleport(Config.getLobby());
+            p.teleport(NewConfig.getLobby());
         }
     }
 

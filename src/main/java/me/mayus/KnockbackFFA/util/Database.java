@@ -1,7 +1,6 @@
-package net.snapecraft.KnockbackFFA.util;
+package me.mayus.KnockbackFFA.util;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -30,11 +29,11 @@ public class Database {
         return myList;
     }
 
-    public static Boolean hasKit(UUID uuid, String kitName) {
+    public static Boolean hasKit(UUID uuid, KitObject kit) {
         return false;
     }
 
-    public static void addKit(UUID uuid, String kitName) {
+    public static void addKit(UUID uuid, KitObject kit) {
 
     }
 

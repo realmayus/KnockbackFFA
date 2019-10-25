@@ -1,7 +1,7 @@
-package net.snapecraft.KnockbackFFA.command;
+package me.mayus.KnockbackFFA.command;
 
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -14,7 +14,7 @@ public class KDCMD implements CommandExecutor {
 
         Player p = (Player) sender;
 
-        p.sendMessage(Main.prefix + "Deine K/D: §6" + Config.getKD(p.getName()));
+        p.sendMessage(Main.prefix + "Deine K/D: §6" + NewConfig.getKD(p.getName()));
 
 
         return true;

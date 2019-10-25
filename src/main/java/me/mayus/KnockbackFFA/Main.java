@@ -1,15 +1,15 @@
-package net.snapecraft.KnockbackFFA;
+package me.mayus.KnockbackFFA;
 
-import net.snapecraft.KnockbackFFA.command.Buildmode;
-import net.snapecraft.KnockbackFFA.command.commands;
+import me.mayus.KnockbackFFA.events.*;
+import me.mayus.KnockbackFFA.command.Buildmode;
+import me.mayus.KnockbackFFA.command.commands;
 import net.snapecraft.KnockbackFFA.events.*;
-import net.snapecraft.KnockbackFFA.kits.KitGuiCommand;
-import net.snapecraft.KnockbackFFA.kits.KitGuiListener;
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.util.KitObject;
+import me.mayus.KnockbackFFA.kits.KitGuiCommand;
+import me.mayus.KnockbackFFA.kits.KitGuiListener;
+import me.mayus.KnockbackFFA.util.KitObject;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
-import org.bukkit.Material;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -45,16 +45,13 @@ public class Main extends JavaPlugin {
 
     public void init() {
 
-        Config.setDefaults();
+        NewConfig.setDefaults();
 
-
-        System.out.println("kits: " + Config.getKits().toString());
-        System.out.println("items: " + Config.getDisplayNameOfKit("starterItems"));
-
-
+        System.out.println("\n\n" + NewConfig.getKits().toString() + "\n\n");
         Bukkit.getPluginManager().registerEvents(new PlayerKnockoffEvent(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerJoin(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerQuit(), this);
+        Bukkit.getPluginManager().registerEvents(new PlayerMove(), this);
         Bukkit.getPluginManager().registerEvents(new LobbyRestrictions(), this);
         Bukkit.getPluginManager().registerEvents(new PlayerDeath(), this);
 

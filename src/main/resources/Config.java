@@ -1,5 +1,3 @@
-package net.snapecraft.KnockbackFFA.util;
-
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -147,7 +145,7 @@ public class Config {
                 return Material.valueOf(s.replace("+", ""));
             }
         }
-        return Material.ENDER_STONE;
+        return Material.END_STONE;
     }
 
     public static void setLobby(Location loc) {

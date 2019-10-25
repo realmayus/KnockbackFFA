@@ -1,7 +1,8 @@
 name: KBFFA
-version: 2.0
+version: "2.0"
+api-version: "1.14"
 author: MayusYT
-main: net.snapecraft.KnockbackFFA.Main
+main: Main
 commands:
     kbffa:
         description: All commands for KBFFA.

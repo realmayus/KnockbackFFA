@@ -1,6 +1,6 @@
-package net.snapecraft.KnockbackFFA.events;
+package me.mayus.KnockbackFFA.events;
 
-import net.snapecraft.KnockbackFFA.command.Buildmode;
+import me.mayus.KnockbackFFA.command.Buildmode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;

@@ -1,7 +1,7 @@
-package net.snapecraft.KnockbackFFA.events;
+package me.mayus.KnockbackFFA.events;
 
-import net.snapecraft.KnockbackFFA.util.Config;
-import net.snapecraft.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.util.NewConfig;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,12 +24,12 @@ public class PlayerKnockoffEvent implements Listener {
             ((Player)e.getEntity()).setHealth(20.0);
 
             //Damage auf der Plattform verbieten
-            if(e.getEntity().getLocation().getBlockY() == Config.getArenaSpawn(Config.getArenaNameFromWorldName(e.getEntity().getWorld().getName())).getBlockY()) {
+            if(e.getEntity().getLocation().getBlockY() == NewConfig.getArenaSpawn(NewConfig.getArenaNameFromWorldName(e.getEntity().getWorld().getName())).getBlockY()) {
                 e.setCancelled(true);
             }
 
             //Todeshöhe abfragen
-            else if(e.getEntity().getLocation().getBlockY() != Config.getDeathHeightForWorld(e.getEntity().getWorld().getName())) {
+            else if(e.getEntity().getLocation().getBlockY() != NewConfig.getDeathHeightForWorld(e.getEntity().getWorld().getName())) {
                 knockedPlayers.add((Player)e.getEntity());
                 new BukkitRunnable() {
                     @Override
@@ -41,13 +41,13 @@ public class PlayerKnockoffEvent implements Listener {
                             cancel();
                             ctdwn = 1;
                             e.setCancelled(true);
-                            if(victim.getLocation().getY() <= Config.getDeathHeightForWorld(e.getEntity().getWorld().getName())) {
-                                Config.addDeath(victim.getName());
-                                Config.addKill(murderer.getName());
+                            if(victim.getLocation().getY() <= NewConfig.getDeathHeightForWorld(e.getEntity().getWorld().getName())) {
+                                NewConfig.addDeath(victim.getName());
+                                NewConfig.addKill(murderer.getName());
                                 victim.sendMessage("§cDu wurdest von " + murderer.getName() + " getötet!");
                                 murderer.sendMessage("§aDu hast " + victim.getName() + " getötet!");
                                 Bukkit.broadcastMessage("§6" + murderer.getName() + " §rhat §6" + victim.getName() + " §rgetötet!");
-                                victim.teleport(Config.getArenaSpawn(Config.getArenaNameFromWorldName(victim.getWorld().getName())));
+                                victim.teleport(NewConfig.getArenaSpawn(NewConfig.getArenaNameFromWorldName(victim.getWorld().getName())));
                                 knockedPlayers.remove(victim);
                             }
 
