@@ -1,9 +1,8 @@
 package me.mayus.KnockbackFFA;
 
-import me.mayus.KnockbackFFA.events.*;
 import me.mayus.KnockbackFFA.command.Buildmode;
 import me.mayus.KnockbackFFA.command.commands;
-import net.snapecraft.KnockbackFFA.events.*;
+import me.mayus.KnockbackFFA.events.*;
 import me.mayus.KnockbackFFA.kits.KitGuiCommand;
 import me.mayus.KnockbackFFA.kits.KitGuiListener;
 import me.mayus.KnockbackFFA.util.KitObject;
@@ -15,6 +14,7 @@ import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashMap;
+import java.util.Objects;
 
 public class Main extends JavaPlugin {
 
@@ -57,25 +57,17 @@ public class Main extends JavaPlugin {
 
         Bukkit.getPluginManager().registerEvents(new KitGuiListener(), this);
 
-        getCommand("kbffa").setExecutor(new commands());
-        getCommand("kit").setExecutor(new KitGuiCommand());
-        getCommand("kits").setExecutor(new KitGuiCommand());
-        getCommand("build").setExecutor(new Buildmode());
+        Objects.requireNonNull(getCommand("kbffa")).setExecutor(new commands());
+        Objects.requireNonNull(getCommand("kit")).setExecutor(new KitGuiCommand());
+        Objects.requireNonNull(getCommand("kits")).setExecutor(new KitGuiCommand());
+        Objects.requireNonNull(getCommand("build")).setExecutor(new Buildmode());
     }
 
     public static void addToGamelist(String p, String world) {
-        if(gamelist.containsKey(p)) {
-            gamelist.remove(p);
-            gamelist.put(p, world);
-        } else {
-            gamelist.put(p, world);
-        }
+        gamelist.remove(p);
+        gamelist.put(p, world);
     }
     public static void removeFromGamelist(String p) {
-        try{
-            gamelist.remove(p);
-        } catch(Exception e) {
-
-        }
+        gamelist.remove(p);
     }
 }

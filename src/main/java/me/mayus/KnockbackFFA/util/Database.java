@@ -30,7 +30,7 @@ public class Database {
     }
 
     public static Boolean hasKit(UUID uuid, KitObject kit) {
-        return false;
+        return true;
     }
 
     public static void addKit(UUID uuid, KitObject kit) {

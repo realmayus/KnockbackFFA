@@ -16,6 +16,9 @@ public class PlayerDeath implements Listener {
     public void onDeath(PlayerDeathEvent e) {
         Player p = e.getEntity();
         e.setDeathMessage(null);
+        e.setKeepInventory(true);
+        e.setKeepLevel(true);
+        e.getEntity().getInventory().clear();
         if(Main.gamelist.containsKey(p.getName())) {
             NewConfig.addDeath(p.getName());
             p.sendMessage("§cDu bist gestorben!");

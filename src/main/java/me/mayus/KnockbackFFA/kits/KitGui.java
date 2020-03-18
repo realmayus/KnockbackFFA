@@ -56,64 +56,6 @@ public class KitGui {
     This inventory is opened when you click on a kit and don't own it yet. You get a menu where you can
     see your current balance, the kit you're gonna buy as well as some abort/confirm buttons.
      */
-//    public static void openBuyScreen(Player p, String kit) {
-//        Inventory inv = Bukkit.createInventory(null, 9, "§2Kit kaufen");
-//
-//        String displayName = Config.getDisplayNameOfKit(kit);
-//        int price = Config.getPriceOfKit(kit);
-//        Material icon = Config.getIconOfKit(kit);
-//        List<Material> items = Config.getItemsOfKit(kit);
-//        List<String> lore = new ArrayList<>();
-//        lore.add("§7Dieses Kit enthält:");
-//        for(Material mat : items) {
-//            lore.add("- §b" + mat.name());
-//        }
-//
-//        lore.add(" ");
-//        if(Database.hasKit(p.getUniqueId(), kit)) {
-//            lore.add("§dDu besitzt dieses Kit.");
-//        } else {
-//            lore.add("§7Preis: §e" + price);
-//            lore.add("§2§oKlicke, um dieses Kit zu kaufen");
-//        }
-//
-//        ItemStack kitStack = new ItemStack(icon, 1);
-//        ItemMeta kitStackMeta = kitStack.getItemMeta();
-//        kitStackMeta.setDisplayName(displayName);
-//        kitStackMeta.setLore(lore);
-//        kitStack.setItemMeta(kitStackMeta);
-//
-//        inv.setItem(0, kitStack);
-//
-//        ItemStack chest = new ItemStack(Material.CHEST, 1);
-//        ItemMeta chestMeta = chest.getItemMeta();
-//        chestMeta.setDisplayName("§eDein Kontostand");
-//        List<String> chestLore = new ArrayList<>();
-//        chestLore.add("§7Du hast derzeit:");
-//        chestLore.add("§e"  +Database.getCoins(p.getUniqueId()) + " Coins");
-//        chestMeta.setLore(chestLore);
-//        chest.setItemMeta(chestMeta);
-//
-//        inv.setItem(1, chest);
-//
-//        ItemStack cancelStack = new ItemStack(Material.WOOL, 1, (short) DyeColor.RED.getData());
-//        ItemMeta cancelStackMeta = cancelStack.getItemMeta();
-//        cancelStackMeta.setDisplayName("§cAbbrechen");
-//        cancelStack.setItemMeta(cancelStackMeta);
-//
-//        inv.setItem(7, cancelStack);
-//
-//        ItemStack buyStack = new ItemStack(Material.WOOL, 1, (short) DyeColor.GREEN.getData());
-//        ItemMeta buyStackMeta = cancelStack.getItemMeta();
-//        buyStackMeta.setDisplayName("§aKaufen");
-//        buyStack.setItemMeta(buyStackMeta);
-//
-//        inv.setItem(8, buyStack);
-//
-//
-//        p.openInventory(inv);
-//    }
-
     public static void openBuyScreen(Player p, KitObject kit) {
         Inventory inv = Bukkit.createInventory(null, 9, "§2Kit kaufen");
 
@@ -167,8 +109,6 @@ public class KitGui {
         buyStack.setItemMeta(buyStackMeta);
 
         inv.setItem(8, buyStack);
-
-
         p.openInventory(inv);
     }
 
@@ -283,7 +223,7 @@ public class KitGui {
 
 
     // Returns the page a player is currently looking at.
-    public static int getPage(Player p) {
+    public static Integer getPage(Player p) {
         return currentPage.getOrDefault(p, 0);
     }
 

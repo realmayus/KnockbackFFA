@@ -15,7 +15,7 @@ public class Kit {
     public static HashMap<Player, KitObject> currentKits = new HashMap<>();
 
     public static KitObject getCurrentKit(Player p){
-        return currentKits.getOrDefault(p, NewConfig.getKit("objectItems"));
+        return currentKits.getOrDefault(p, NewConfig.getKit("objectTest"));
     }
 
     public static void setCurrentKit(Player p, KitObject kit) {
@@ -23,25 +23,10 @@ public class Kit {
         currentKits.put(p, kit);
     }
 
-//    public static void receiveItems(Player p) {
-//        List<Material> ml = Config.getItemsOfKit(getCurrentKit(p));
-//
-//        for(Material material : ml) {
-//            if(material.equals(Material.STICK)) {
-//                ItemStack stick = new ItemStack(material);
-//                ItemMeta stickm = stick.getItemMeta();
-//                stickm.setDisplayName("§5Knockback§r-§aStick");
-//                stickm.addEnchant(Enchantment.KNOCKBACK, 4, true);
-//                stick.setItemMeta(stickm);
-//                p.getInventory().addItem(stick);
-//            } else {
-//                p.getInventory().addItem(new ItemStack(material));
-//            }
-//        }
-//    }
+
 
     public static void receiveItems(Player p) {
-
+        p.getInventory().clear();
         for(ItemStack itemStack : getCurrentKit(p).getItemsIncluded()) {
             if(itemStack.getType().equals(Material.STICK)) {
                 ItemStack stick = new ItemStack(itemStack.getType());

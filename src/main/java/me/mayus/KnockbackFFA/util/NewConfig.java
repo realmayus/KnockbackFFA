@@ -12,7 +12,7 @@ import java.util.*;
 
 public class NewConfig {
 
-    public static File ConfigFile = new File("plugins/KnockbackFFA", "new_config.yml");
+    public static File ConfigFile = new File("plugins/KnockbackFFA", "config.yml");
     public static FileConfiguration Config = YamlConfiguration.loadConfiguration(ConfigFile);
 
 
@@ -28,10 +28,12 @@ public class NewConfig {
     }
 
     public static void setDefaults() {
-
-        List<String> starter = new ArrayList<>();
-        starter.add("STICK");
-        starter.add("APPLE");
+        try {
+            save();
+            reload();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 
         List<ItemStack> test = new ArrayList<>();
@@ -39,16 +41,16 @@ public class NewConfig {
         test.add(new ItemStack(Material.COOKED_MUTTON));
 
         Config.addDefault("altkits.objectItems", new KitObject("objectTest", "object test", 10, test, Material.REDSTONE));
-        Config.addDefault("kits.starterItems", starter);
         Config.addDefault("settings.game.GetHunger", false);
+
         Config.options().copyDefaults(true);
 
         try {
             save();
+            reload();
         } catch (IOException e) {
             e.printStackTrace();
         }
-        reload();
     }
     
     

@@ -3,7 +3,9 @@ package me.mayus.KnockbackFFA.util;
 import org.bukkit.Material;
 import org.bukkit.configuration.serialization.ConfigurationSerializable;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.PlayerInventory;
 
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -42,12 +44,22 @@ public class KitObject implements ConfigurationSerializable {
         this.itemsIncluded = itemsIncluded;
         this.icon = icon;
     }
+    public KitObject(String name, String displayName, Integer price, PlayerInventory itemsIncluded, Material icon) {
+        this.name = name;
+        this.displayName = displayName;
+        this.price = price;
+        this.itemsIncluded = Arrays.asList(itemsIncluded.getContents());
+        this.icon = icon;
+    }
     // This is necessary for saving the object in a config
     public KitObject(Map<String, Object> map) {
         this.name = (String)map.get("name");
         this.displayName = (String)map.get("displayName");
         this.price = (int)map.get("price");
-        this.itemsIncluded = (List<ItemStack>)map.get("itemsIncluded");
+
+        List<ItemStack> items = (List<ItemStack>)map.get("itemsIncluded");
+        while(items.remove(null)); //remove all null entries of "items"
+        this.itemsIncluded = items;
         this.icon = Material.valueOf((String)map.get("icon"));
     }
     // This is necessary for saving the object in a config
