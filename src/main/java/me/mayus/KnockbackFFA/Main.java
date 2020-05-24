@@ -7,11 +7,13 @@ import me.mayus.KnockbackFFA.kits.KitGuiCommand;
 import me.mayus.KnockbackFFA.kits.KitGuiListener;
 import me.mayus.KnockbackFFA.util.KitObject;
 import me.mayus.KnockbackFFA.util.NewConfig;
+import me.mayus.KnockbackFFA.util.ScoreboardManager;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.command.ConsoleCommandSender;
 import org.bukkit.configuration.serialization.ConfigurationSerialization;
 import org.bukkit.plugin.java.JavaPlugin;
+import org.bukkit.scoreboard.Score;
 
 import java.util.HashMap;
 import java.util.Objects;

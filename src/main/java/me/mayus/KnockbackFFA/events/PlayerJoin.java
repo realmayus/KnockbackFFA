@@ -1,5 +1,7 @@
 package me.mayus.KnockbackFFA.events;
 
+import me.mayus.KnockbackFFA.Main;
+import me.mayus.KnockbackFFA.util.ScoreboardManager;
 import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import me.mayus.KnockbackFFA.kits.KitGui;
@@ -14,6 +16,7 @@ public class PlayerJoin implements Listener {
 
     @EventHandler
     public void onJoin(PlayerJoinEvent e) {
+        ScoreboardManager.createScoreboard(e.getPlayer());
         KitGui.currentPage.put(e.getPlayer(), 0);
         e.getPlayer().getInventory().clear();
         e.getPlayer().setHealth(20.0);
@@ -36,5 +39,4 @@ public class PlayerJoin implements Listener {
 
         }
     }
-
 }

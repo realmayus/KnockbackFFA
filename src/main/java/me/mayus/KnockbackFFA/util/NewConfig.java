@@ -1,5 +1,7 @@
 package me.mayus.KnockbackFFA.util;
 
+import me.mayus.KnockbackFFA.Main;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.configuration.file.FileConfiguration;
@@ -124,7 +126,7 @@ public class NewConfig {
     }
 
     public static void setKills(String p, Integer amount) {
-
+        ScoreboardManager.updateScoreboard(Bukkit.getPlayer(p));
         Config.set("stats." + p + ".kills", amount);
 
 
@@ -161,7 +163,7 @@ public class NewConfig {
 
 
     public static void setDeaths(String p, Integer amount) {
-
+        ScoreboardManager.updateScoreboard(Bukkit.getPlayer(p));
         Config.set("stats." + p + ".deaths", amount);
 
 

@@ -14,7 +14,6 @@ public class PlayerMove implements Listener {
         if(NewConfig.Config.getString("worlds." + e.getPlayer().getWorld().getName() + ".DeathHeight") != null) {
             if(e.getPlayer().getLocation().getBlockY() < NewConfig.getDeathHeightForWorld(e.getPlayer().getWorld().getName())) {
                 if(!PlayerKnockoffEvent.knockedPlayers.contains(e.getPlayer())) {
-                    //TODO stats in DB
                     NewConfig.addDeath(e.getPlayer().getName());
                     e.getPlayer().sendMessage("§cDu bist gestorben!");
                     Bukkit.broadcastMessage("§6" + e.getPlayer().getName() + " §rist gestorben!");
